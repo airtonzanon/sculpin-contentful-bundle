@@ -1,0 +1,32 @@
+{
+    "name": "airtonzanon/sculpin-contentful-bundle",
+    "description": "Fetch contentful content and generate what you want with twig",
+    "keywords": ["sculpin", "twig", "contentful", "markdown"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Airton Zanon",
+            "email": "me@airton.dev",
+            "homepage": "https://airton.dev"
+        }
+    ],
+
+    "suggest": {
+        "sculpin/sculpin": "@stable"
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "contentful/contentful": "^6.1.0"
+    },
+    "require-dev": {
+        "malukenho/mcbumpface": "^1.1.5"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": "true"
+        }
+    },
+    "autoload": {
+        "psr-4": { "AirtonZanon\\SculpinContentfulBundle\\": "src" }
+    }
+}
