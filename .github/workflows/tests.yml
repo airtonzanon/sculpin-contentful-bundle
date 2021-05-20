@@ -1,0 +1,29 @@
+name: Run CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: CI
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.4', '8.0']
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --dev
+      env:
+        COMPOSER_ROOT_VERSION: dev-master
+
+    - name: Run Psalm
+      run: ./vendor/bin/psalm --threads=2 --output-format=github --shepherd
+
+    - name: Run Phpunit
+      run: ./vendor/bin/phpunit
+
+    - name: Run Infection
+      run: phpdbg -qrr vendor/bin/infection
