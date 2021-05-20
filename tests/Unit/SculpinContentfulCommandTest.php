@@ -50,6 +50,8 @@ class SculpinContentfulCommandTest extends TestCase
                 'date' => new \DateTimeImmutable('2021-05-20'),
                 'title' => "Fake post",
                 'language' => "en-US",
+                'environment' => "test",
+                'space' => '123space',
                 'contentMarkdown' => <<<EOL
 ### Markdown Title
 
@@ -60,6 +62,8 @@ EOL,], [
                 'id' => '123-id',
                 'createdAt' => '2021-10-01',
                 'updatedAt' => '2021-10-01',
+                'environment' => "test",
+                'space' => '123space',
                 'contentType' => $this->contentTypeMock,
             ])];
     }
