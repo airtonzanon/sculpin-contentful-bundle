@@ -45,7 +45,7 @@ final class SculpinContentfulCommand extends Command
             $output->writeln("Created file: " . $filePath );
         }
 
-        return Command::SUCCESS;
+        return 0;
     }
 
     private function createPath(string $type, \DateTimeImmutable $date, string $title): string
