@@ -5,30 +5,31 @@ declare(strict_types=1);
 namespace AirtonZanon\SculpinContentfulBundle\Command;
 
 use Contentful\Delivery\Client;
-use Sculpin\Core\Console\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 
-final class SculpinContentfulCommand extends ContainerAwareCommand
+final class SculpinContentfulCommand extends Command
 {
-    protected function configure()
-    {
-        $this
-            ->setName('contentful:fetch')
-            ->setDescription('Fetch Contentful data.')
-            ->setHelp("The <info>contentful:fetch</info> command fetches contentful data and create files locally.");
-    }
+    private Client\ClientInterface $contetful;
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function configure()
     {
         $contentfulSpaceId = getenv('contentful_space_id');
         $contentfulToken = getenv('contentful_token');
 
-        $contetful = new Client($contentfulToken, $contentfulSpaceId);
+        $this
+            ->setName('contentful:fetch')
+            ->setDescription('Fetch Contentful data.')
+            ->setHelp("The <info>contentful:fetch</info> command fetches contentful data and create files locally.")
+            ->setContentfulClient(new Client($contentfulToken, $contentfulSpaceId));
+    }
 
-        $entries = $contetful->getEntries()->getItems();
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $entries = $this->contetful->getEntries()->getItems();
 
         foreach ($entries as $entry) {
             $filesystem = new Filesystem();
@@ -43,6 +44,8 @@ final class SculpinContentfulCommand extends ContainerAwareCommand
 
             $output->writeln("Created file: " . $filePath );
         }
+
+        return Command::SUCCESS;
     }
 
     private function createPath(string $type, \DateTimeImmutable $date, string $title): string
@@ -69,10 +72,17 @@ EOL;
         setlocale(LC_ALL, 'en_US.utf8');
 
         $cleanTitle = strtolower($title);
-        $cleanTitle = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $cleanTitle);
+        $cleanTitle = iconv('UTF-8', 'ASCII', $cleanTitle);
         $cleanTitle = preg_replace("/[^a-z0-9]+/", "-", $cleanTitle);
 
         setlocale(LC_ALL, $currentLocale);
         return $cleanTitle;
+    }
+
+    public function setContentfulClient(Client\ClientInterface $client): self
+    {
+        $this->contetful = $client;
+
+        return $this;
     }
 }

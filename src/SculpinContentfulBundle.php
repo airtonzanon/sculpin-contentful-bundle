@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AirtonZanon\SculpinContentfulBundle;
 
 use AirtonZanon\SculpinContentfulBundle\Command\SculpinContentfulCommand;
+use AirtonZanon\SculpinContentfulBundle\DependencyInjection\SculpinContentfulExtension;
 use Symfony\Component\Console\Application;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
