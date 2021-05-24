@@ -13,6 +13,9 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final class SculpinContentfulCommand extends Command
 {
+    public const SUCCESS = 0;
+    public const FAILURE = 1;
+
     private Client\ClientInterface $contetful;
 
     protected function configure()
@@ -45,7 +48,7 @@ final class SculpinContentfulCommand extends Command
             $output->writeln("Created file: " . $filePath );
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function createPath(string $type, \DateTimeImmutable $date, string $title): string
