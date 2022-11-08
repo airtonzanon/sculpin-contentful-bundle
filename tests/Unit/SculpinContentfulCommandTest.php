@@ -13,13 +13,16 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class SculpinContentfulCommandTest extends TestCase
 {
-    /**
-     * @var ContentType|MockObject
-     */
-    private $contentTypeMock;
+    private ContentType|MockObject $contentTypeMock;
 
-    public function testExecuteSuccessScenario()
-    {
+    /**
+     * @dataProvider  dpDifferentTitles
+     */
+    public function testExecuteSuccessScenario(
+        string $title,
+        string $language,
+        string $expectedFileName
+    ): void {
         $command = new SculpinContentfulCommand();
         $contentfulMock = $this->getMockBuilder(Client\ClientInterface::class)
             ->disableOriginalConstructor()
@@ -29,7 +32,7 @@ class SculpinContentfulCommandTest extends TestCase
 
         $contentfulMock->expects($this->once())
             ->method('getEntries')
-            ->willReturn(new ResourceArray($this->getFixture(), 1, 1, 1));
+            ->willReturn(new ResourceArray($this->getFixture($title, $language), 1, 1, 1));
 
         $this->assertSame("contentful:fetch", $command->getName());
 
@@ -38,18 +41,26 @@ class SculpinContentfulCommandTest extends TestCase
         $commandTester->execute([]);
 
         $output = $commandTester->getDisplay();
-        $this->assertEquals("Created file: source/_til/2021-05-20-fake-post.md\n", $output);
+        $this->assertEquals("Created file: source/_til/" . $expectedFileName . "\n", $output);
     }
 
-    public function getFixture(): array
+    public function dpDifferentTitles(): array
+    {
+        return [
+            "pt-br" => ["Métricas caçador mamão", "pt-BR", "2021-05-20-mtricas-caador-mamo.md"],
+            "en-us" => ["Fake entry", "en-US", "2021-05-20-fake-entry.md"],
+        ];
+    }
+
+    private function getFixture(string $title, string $language): array
     {
         $this->contentTypeMock->method('getName')->willReturn('til');
 
         return [
             new FakeEntry([
                 'date' => new \DateTimeImmutable('2021-05-20'),
-                'title' => "Fake post",
-                'language' => "en-US",
+                'title' => $title,
+                'language' => $language,
                 'environment' => "test",
                 'space' => '123space',
                 'contentMarkdown' => <<<EOL

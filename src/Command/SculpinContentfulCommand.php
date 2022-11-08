@@ -75,7 +75,7 @@ EOL;
         setlocale(LC_ALL, 'en_US.utf8');
 
         $cleanTitle = strtolower($title);
-        $cleanTitle = iconv('UTF-8', 'ASCII', $cleanTitle);
+        $cleanTitle = iconv('UTF-8', 'ASCII//IGNORE', $cleanTitle);
         $cleanTitle = preg_replace("/[^a-z0-9]+/", "-", $cleanTitle);
 
         setlocale(LC_ALL, $currentLocale);
