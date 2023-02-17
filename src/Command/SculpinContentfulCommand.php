@@ -30,7 +30,7 @@ final class SculpinContentfulCommand extends Command
             ->setContentfulClient(new Client($contentfulToken, $contentfulSpaceId));
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $entries = $this->contetful->getEntries()->getItems();
 

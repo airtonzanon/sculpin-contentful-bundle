@@ -42,23 +42,15 @@ class FakeEntry extends LocalizedResource implements EntryInterface, \ArrayAcces
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($name)
+    public function offsetGet($offset): mixed
     {
-        return $this->fields[$name];
+        return $this->fields[$offset];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($name)
-    {
-        throw new \LogicException('Entry class does not support this.');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetSet($name, $value)
+    public function offsetExists($offset): bool
     {
         throw new \LogicException('Entry class does not support this.');
     }
@@ -66,7 +58,15 @@ class FakeEntry extends LocalizedResource implements EntryInterface, \ArrayAcces
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($name)
+    public function offsetSet($offset, $value): void
+    {
+        throw new \LogicException('Entry class does not support this.');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset): void
     {
         throw new \LogicException('Entry class does not support this.');
     }
