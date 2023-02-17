@@ -9,13 +9,12 @@
         verbose="true"
         colors="true"
 >
-    <php>
-        <env name="contentful_space_id" value="test-space-id" />
-        <env name="contentful_token" value="test-token123444" />
-    </php>
     <testsuites>
         <testsuite name="unit">
             <directory>./tests/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>./tests/Integration</directory>
         </testsuite>
     </testsuites>
     <coverage>
