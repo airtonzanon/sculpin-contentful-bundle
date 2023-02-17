@@ -2,6 +2,9 @@
 
 Using Contentful as content management system (CMS), it will download the content from contentful and add them on `source/_[something]` directory.
 
+![Packagist Version](https://img.shields.io/packagist/v/airtonzanon/sculpin-contentful-bundle)
+![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/airtonzanon/sculpin-contentful-bundle/php)
+
 ### How to use
 
 #### Environment variables:
