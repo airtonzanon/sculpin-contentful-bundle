@@ -15,7 +15,7 @@
         "sculpin/sculpin": "@stable"
     },
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-iconv": "*",
         "contentful/contentful": "^7.0.1",
         "symfony/console": "^3.4.29 || ^4.1.19 || ^5.0"
