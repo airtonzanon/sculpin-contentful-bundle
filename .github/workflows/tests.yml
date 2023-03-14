@@ -15,7 +15,14 @@ jobs:
         php: ['8.1', '8.2']
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: PCOV 
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: pcov
 
     - name: Install dependencies
       run: composer install --prefer-dist --dev
@@ -29,4 +36,4 @@ jobs:
       run: ./vendor/bin/phpunit
 
     - name: Run Infection
-      run: phpdbg -qrr vendor/bin/infection
+      run: ./vendor/bin/infection
