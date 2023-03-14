@@ -44,7 +44,7 @@ class SculpinContentfulCommandTest extends TestCase
         $this->assertEquals("Created file: source/_til/" . $expectedFileName . "\n", $output);
     }
 
-    public function dpDifferentTitles(): array
+    public static function dpDifferentTitles(): array
     {
         return [
             "pt-br" => ["Métricas caçador mamão", "pt-BR", "2021-05-20-mtricas-caador-mamo.md"],

@@ -6,3 +6,4 @@
     "source": { "directories": [ "src/Command" ] },
     "testFramework": "phpunit"
 }
+
