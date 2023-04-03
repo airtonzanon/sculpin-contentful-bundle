@@ -22,7 +22,7 @@
     },
     "require-dev": {
         "malukenho/mcbumpface": "^1.2.0",
-        "phpunit/phpunit": "^9.6.5",
+        "phpunit/phpunit": "^10.0.19",
         "infection/infection": "^0.26.19",
         "vimeo/psalm": "^5.8.0"
     },
